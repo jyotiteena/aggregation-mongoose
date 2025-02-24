@@ -1,5 +1,5 @@
 const { Student } = require("../models/student.model")
-const { createPost, fetchPost, unwindArrPost, windWithCondition, matchByAge, skipRecords } = require("../utils/Api")
+const { createPost, fetchPost, unwindArrPost, windWithCondition, matchByAge, skipRecords, sortRecords } = require("../utils/Api")
 
 exports.store = async (req, res) => {
     const { std_name, std_age, std_email, std_marks } = req.body
@@ -36,7 +36,7 @@ exports.unwindArrCondition = async (req, res) => {
 
 exports.matchAge = async (req, res) => {
     try {
-        await matchByAge(Student, res,req.params.id)
+        await matchByAge(Student, res, req.params.id)
     } catch (error) {
         console.log('error: ', error);
     }
@@ -44,8 +44,16 @@ exports.matchAge = async (req, res) => {
 
 exports.skipRecord = async (req, res) => {
     try {
-        await skipRecords(Student, res,req.params.id)
+        await skipRecords(Student, res, req.params.id)
     } catch (error) {
         console.log('error: ', error);
+    }
+}
+
+exports.sortRecord = async (req, res) => {
+    try {
+        await sortRecords(Student, res)
+    } catch (error) {
+        console.log(error)
     }
 }

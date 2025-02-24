@@ -7,15 +7,15 @@ const stdSchema = new Schema({
         ...common,
         type: Number
     },
-    std_email:{
+    std_email: {
         ...common,
-        unique:[true,"email id already exist"]
+        unique: [true, "email id already exist"]
     },
-    std_marks:[]
+    std_marks: []
 },
-{
-    timestamps:true
-})
+    {
+        timestamps: true
+    })
 
 
 exports.Student = model('Student', stdSchema)

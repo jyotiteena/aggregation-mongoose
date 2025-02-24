@@ -1,5 +1,3 @@
-const { model } = require("mongoose")
-
 exports.createPost = async (model, data, res, message) => {
     await model.create(data)
         .then((record) => {
@@ -82,6 +80,32 @@ exports.skipRecords = async (model, res) => {
     ///// method2 ///////
     await model.aggregate([
         { $skip: 2 }
+    ])
+        .then((record) => {
+            res.json({
+                success: true,
+                record,
+            })
+        })
+}
+
+exports.sortRecords = async (model, res) => {
+    /////////// method 1 ////////
+    // descending order 
+    // await model.aggregate().sort({ 'std_age': -1 })
+    //     .then((record) => {
+    //         res.json({
+    //             success: true,
+    //             record,
+    //         })
+    //     })
+
+
+    ///////// method 2 ////////////
+
+    // descending order and then sorting has been performed on std_name  field in ascending order.
+    await model.aggregate([
+        { $sort: { std_age: -1, std_name: 1 } }
     ])
         .then((record) => {
             res.json({
