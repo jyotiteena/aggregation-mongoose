@@ -10,5 +10,6 @@ router.get('/windCondition', Student.unwindArrCondition)
 router.get('/matchAge/:id', Student.matchAge)
 router.get('/skiprecord', Student.skipRecord)
 router.get('/sortRecord', Student.sortRecord)
+router.get('/sortByCount', Student.sortByCount)
 
 module.exports = router

@@ -1,3 +1,5 @@
+const { model } = require("mongoose")
+
 exports.createPost = async (model, data, res, message) => {
     await model.create(data)
         .then((record) => {
@@ -113,4 +115,45 @@ exports.sortRecords = async (model, res) => {
                 record,
             })
         })
+}
+
+exports.sortByCounts = async (model, res) => {
+    ////// method 1 /////////
+    // await model.aggregate().sortByCount('std_age')
+    //     .then((record) => {
+    //         res.json({
+    //             success: true,
+    //             record,
+    //         })
+    //     })
+
+
+    ///// method 2 //////////
+    // await model.aggregate([
+    //     { $sortByCount: '$std_age' }
+    // ]).then((record) => {
+    //     res.json({
+    //         success: true,
+    //         record,
+    //     })
+    // })
+
+
+    //////// method 3 replace key name _id -> std_age using $project
+    await model.aggregate([
+        { $sortByCount: '$std_age' },
+        {
+            $project: {
+                _id: 0,
+                std_age: '$_id',
+                count: 1
+            }
+        }
+    ]).then((record) => {
+        res.json({
+            success: true,
+            record,
+        })
+    })
+
 }

@@ -1,5 +1,5 @@
 const { Student } = require("../models/student.model")
-const { createPost, fetchPost, unwindArrPost, windWithCondition, matchByAge, skipRecords, sortRecords } = require("../utils/Api")
+const { createPost, fetchPost, unwindArrPost, windWithCondition, matchByAge, skipRecords, sortRecords, sortByCounts } = require("../utils/Api")
 
 exports.store = async (req, res) => {
     const { std_name, std_age, std_email, std_marks } = req.body
@@ -53,6 +53,14 @@ exports.skipRecord = async (req, res) => {
 exports.sortRecord = async (req, res) => {
     try {
         await sortRecords(Student, res)
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+exports.sortByCount = async (req, res) => {
+    try {
+        await sortByCounts(Student, res)
     } catch (error) {
         console.log(error)
     }
