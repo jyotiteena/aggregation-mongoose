@@ -87,7 +87,7 @@ exports.cursorName = async (req, res) => {
             { $project: { std_name: 1 } }
         ])
         .cursor({ batchSize: 1000 })
-        .eachAsync((record,count) => {
+        .eachAsync((record, count) => {
             res.json({
                 success: true,
                 record,
@@ -95,3 +95,26 @@ exports.cursorName = async (req, res) => {
             })
         })
 }
+
+exports.multiplyMarks = async (req, res) => {
+    await Student.aggregate().addFields(
+        { multiAge: { $multiply: ["$std_age"] } }
+    ).then((record) => {
+        res.json({
+            success: true,
+            record,
+        })
+    })
+}
+
+exports.sumMarks = async (req, res) => {
+    await Student.aggregate().addFields(
+        { totalMarks: { $sum: "$std_marks" } }
+    ).then((record) => {
+        res.json({
+            success: true,
+            record,
+        })
+    })
+}
+

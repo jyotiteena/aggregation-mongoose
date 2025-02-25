@@ -11,7 +11,7 @@ const stdSchema = new Schema({
         ...common,
         unique: [true, "email id already exist"]
     },
-    std_marks: []
+    std_marks: [Number]
 },
     {
         timestamps: true

@@ -13,5 +13,7 @@ router.get('/sortRecord', Student.sortRecord)
 router.get('/sortByCount', Student.sortByCount)
 router.get('/multipleMatch/:name', Student.multipleMatch)
 router.get('/cursorName', Student.cursorName)
+router.get('/multiplyMarks', Student.multiplyMarks)
+router.get('/sumMarks', Student.sumMarks)
 
 module.exports = router
