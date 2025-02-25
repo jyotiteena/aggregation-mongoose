@@ -67,7 +67,7 @@ exports.sortByCount = async (req, res) => {
 }
 
 exports.multipleMatch = async (req, res) => {
-    var {name} = req.params
+    var { name } = req.params
 
     name = name.split(',')
     console.log(name)
@@ -79,4 +79,19 @@ exports.multipleMatch = async (req, res) => {
             record,
         })
     })
+}
+
+exports.cursorName = async (req, res) => {
+    await Student
+        .aggregate([
+            { $project: { std_name: 1 } }
+        ])
+        .cursor({ batchSize: 1000 })
+        .eachAsync((record,count) => {
+            res.json({
+                success: true,
+                record,
+                count
+            })
+        })
 }

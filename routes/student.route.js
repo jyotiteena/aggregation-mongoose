@@ -12,5 +12,6 @@ router.get('/skiprecord', Student.skipRecord)
 router.get('/sortRecord', Student.sortRecord)
 router.get('/sortByCount', Student.sortByCount)
 router.get('/multipleMatch/:name', Student.multipleMatch)
+router.get('/cursorName', Student.cursorName)
 
 module.exports = router
