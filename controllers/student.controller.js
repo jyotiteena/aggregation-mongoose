@@ -65,3 +65,18 @@ exports.sortByCount = async (req, res) => {
         console.log(error)
     }
 }
+
+exports.multipleMatch = async (req, res) => {
+    var {name} = req.params
+
+    name = name.split(',')
+    console.log(name)
+    await Student.aggregate().match({
+        std_name: { $in: [...name] }
+    }).then((record) => {
+        res.json({
+            success: true,
+            record,
+        })
+    })
+}
