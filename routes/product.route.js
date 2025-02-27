@@ -4,5 +4,6 @@ router.post('/',Product.store)
 router.get('/',Product.index)
 router.get('/totalStock',Product.totalStock)
 router.get('/totalAvg',Product.totalAvg)
+router.get('/minPrice',Product.minPrice)
 
 module.exports = router

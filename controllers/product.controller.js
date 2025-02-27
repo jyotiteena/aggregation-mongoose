@@ -29,8 +29,16 @@ exports.totalStock = async (req, res) => {
 
 exports.totalAvg = async (req, res) => {
     await Product.aggregate([
-        { $group: { _id: null, totalPrice: { $sum: "$price" } , totalAvg: { $avg: '$price' } } }
+        { $group: { _id: null, totalPrice: { $sum: "$price" }, totalAvg: { $avg: '$price' } } }
     ]).then((record) => {
         res.json({ record })
     })
+}
+
+exports.minPrice = async (req, res) => {
+    await Product.aggregate([
+        { $group: { _id: null, minPrice: { $min: "$price" }, maxPrice:{$max:"$price"} }}
+    ]).then((record) => {
+            res.json({ record })
+        })
 }
