@@ -13,10 +13,12 @@ require('./config/db').dbConfig()
 
 //////// import routers ///////
 const Student = require('./routes/student.route')
-
+const Product = require('./routes/product.route')
 
 ///// routing ////////
 app.use('/api/student',Student)
+app.use('/api/product',Product)
+
 
 app.get('/', (req, res) => res.send('Hello World!'))
 app.listen(PORT, () => console.log(`Example app listening on PORT http://localhost:${PORT}`))
