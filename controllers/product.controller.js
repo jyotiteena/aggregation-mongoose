@@ -37,8 +37,19 @@ exports.totalAvg = async (req, res) => {
 
 exports.minPrice = async (req, res) => {
     await Product.aggregate([
-        { $group: { _id: null, minPrice: { $min: "$price" }, maxPrice:{$max:"$price"} }}
+        { $group: { _id: null, minPrice: { $min: "$price" }, maxPrice: { $max: "$price" } } }
     ]).then((record) => {
-            res.json({ record })
-        })
+        res.json({ record })
+    })
 }
+
+exports.uniqueCat = async (req, res) => {
+    try {
+        const categories = await Product.aggregate([
+            { $group: { _id: null, uniqueCat: { $addToSet: "$category" }, uniqueProduct: { $addToSet: "$name" } } }
+        ]);
+        res.json(categories[0]);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};
