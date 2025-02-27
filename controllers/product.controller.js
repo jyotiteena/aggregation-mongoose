@@ -53,3 +53,14 @@ exports.uniqueCat = async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 };
+
+exports.OnlyProduct = async (req, res) => {
+    try {
+      const productNames = await Product.aggregate([
+        { $group: { _id: null, allNames: { $push: "$name" } } }
+      ]);
+      res.json(productNames[0]);
+    } catch (err) {
+      res.status(500).json({ error: err.message });
+    }
+  };

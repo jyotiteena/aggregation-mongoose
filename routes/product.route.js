@@ -6,5 +6,6 @@ router.get('/totalStock',Product.totalStock)
 router.get('/totalAvg',Product.totalAvg)
 router.get('/minPrice',Product.minPrice)
 router.get('/uniqueCat',Product.uniqueCat)
+router.get('/OnlyProduct',Product.OnlyProduct)
 
 module.exports = router
