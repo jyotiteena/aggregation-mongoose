@@ -15,5 +15,6 @@ router.get('/multipleMatch/:name', Student.multipleMatch)
 router.get('/cursorName', Student.cursorName)
 router.get('/multiplyMarks', Student.multiplyMarks)
 router.get('/sumMarks', Student.sumMarks)
+router.get('/groupAge', Student.groupAge)
 
 module.exports = router

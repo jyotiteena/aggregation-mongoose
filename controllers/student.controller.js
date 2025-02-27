@@ -118,3 +118,14 @@ exports.sumMarks = async (req, res) => {
     })
 }
 
+exports.groupAge = async (req, res) => {
+    await Student.aggregate([
+        { $group: { _id: '$std_age', totalAge: { $sum: 1 } } }
+    ]).then((record) => {
+        res.json({
+            success: true,
+            record,
+        })
+    })
+}
+
