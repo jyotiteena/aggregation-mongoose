@@ -56,11 +56,32 @@ exports.uniqueCat = async (req, res) => {
 
 exports.OnlyProduct = async (req, res) => {
     try {
-      const productNames = await Product.aggregate([
-        { $group: { _id: null, allNames: { $push: "$name" } } }
-      ]);
-      res.json(productNames[0]);
+        const productNames = await Product.aggregate([
+            { $group: { _id: null, allNames: { $push: "$name" } } }
+        ]);
+        res.json(productNames[0]);
     } catch (err) {
-      res.status(500).json({ error: err.message });
+        res.status(500).json({ error: err.message });
     }
-  };
+};
+
+exports.firstProduct = async (req, res) => {
+    await Product.aggregate([
+        { $sort: { createdAt: 1 } },
+        { $group: { _id: null, firstProduct: { $first: '$$ROOT' } } }
+    ]).then((record) => {
+        res.json({ record })
+    })
+}
+
+// This sorts the documents in ascending order (1 means oldest to newest).
+// Sorting by createdAt ensures that older products appear first in the aggregation pipeline.
+
+exports.lastProduct = async (req, res) => {
+    await Product.aggregate([
+        { $sort: { createdAt: 1 } },
+        { $group: { _id: null, lastProduct: { $last: '$$ROOT' } } }
+    ]).then((record) => {
+        res.json({ record })
+    })
+}
